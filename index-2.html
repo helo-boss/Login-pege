@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#596270">
+<title>GPS Live Tracking</title>
+<style>
+:root{--navy:#12336f;--muted:#788294;--border:#dce1e9;--green:#08ad78}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;padding:18px 14px;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--navy);background:linear-gradient(145deg,#7b8492,#596270)}
+.panel{width:min(100%,400px);background:linear-gradient(145deg,#fff,#f7f8fa);border:1px solid #dce1e9;border-radius:25px;padding:22px 19px 25px;box-shadow:0 22px 55px #0e182a38}
+.brand{display:flex;justify-content:center;margin:0 auto 10px}
+.brand-mark{width:60px;height:60px;display:grid;place-items:center;border-radius:19px;background:linear-gradient(145deg,#16b8f4,#0873ed);box-shadow:0 8px 18px #097be138}
+.brand-mark svg{width:45px;height:45px}
+h1{text-align:center;margin:0;font-size:clamp(25px,7vw,31px);line-height:1.2;font-weight:750;letter-spacing:-.5px}
+.subtitle{text-align:center;color:var(--muted);font-size:14px;line-height:1.5;margin:8px 0 20px}
+.field{position:relative;margin-bottom:12px}
+.field-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:21px;height:21px;color:#7b8493;pointer-events:none}
+input[type=text],input[type=password]{width:100%;height:53px;border:1.5px solid var(--border);border-radius:12px;background:#ffffffc9;color:#24334b;padding:0 45px 0 48px;font:inherit;font-size:15px;outline:none}
+input::placeholder{color:#858d9c;opacity:1}input:focus{border-color:#16a9d7;box-shadow:0 0 0 3px #16a9d71f}
+.toggle{position:absolute;right:9px;top:50%;transform:translateY(-50%);border:0;padding:7px;background:transparent;color:#7b8493;cursor:pointer}
+.toggle svg{width:21px;height:21px;display:block}
+.terms{display:flex;align-items:flex-start;gap:10px;margin:15px 2px 17px;color:#667085;font-size:13px;line-height:1.45;cursor:pointer}
+.terms input{appearance:none;flex:0 0 21px;width:21px;height:21px;margin:0;border:1.7px solid #8992a1;border-radius:6px;background:white;cursor:pointer}
+.terms input:checked{background:var(--green);border-color:var(--green)}
+.terms input:checked:after{content:"✓";display:block;color:white;text-align:center;font-size:14px;line-height:18px;font-weight:800}
+.terms a{color:var(--navy);text-decoration:underline}
+.submit{width:100%;min-height:53px;border:0;border-radius:12px;background:linear-gradient(100deg,#08ad78,#05a978);box-shadow:0 8px 18px #08ad782e;color:#fff;font:inherit;font-size:17px;font-weight:750;cursor:pointer}
+.submit:disabled{opacity:.52;cursor:not-allowed;box-shadow:none}
+.divider{display:flex;align-items:center;gap:11px;margin-top:26px;font-size:15px;font-weight:750;text-align:center;white-space:nowrap}
+.divider:before,.divider:after{content:"";height:1.5px;background:#aeb6c3;flex:1}
+.notice{display:none;margin:12px 0 0;padding:10px;border-radius:9px;background:#fff0ee;color:#8b2b22;font-size:12px;line-height:1.45}.notice.show{display:block}
+@media(max-width:360px){.panel{padding:19px 15px 22px}.divider{font-size:13px;gap:8px}}
+</style>
+</head>
+<body>
+<main class="panel">
+  <div class="brand" aria-label="Logo GPS Live Tracking"><div class="brand-mark">
+    <svg viewBox="0 0 64 64" role="img" aria-label="Ikon paket dan lokasi">
+      <path d="M12 26 32 15 52 26 32 37Z" fill="#ffd44d"/><path d="M12 26v22l20 11V37Z" fill="#ffad24"/><path d="M52 26v22L32 59V37Z" fill="#ff8b16"/>
+      <path d="M32 5c-9 0-16 7-16 16 0 12 16 25 16 25s16-13 16-25C48 12 41 5 32 5Z" fill="#f43f50" stroke="#fff" stroke-width="2"/><circle cx="32" cy="21" r="6" fill="#fff"/><path d="m28 37 8-4v13l-4-3-4 3Z" fill="#0878e8"/>
+    </svg>
+  </div></div>
+  <h1>GPS Live Tracking</h1>
+  <p class="subtitle">Silakan masukkan data Anda untuk melanjutkan</p>
+  <form id="form" novalidate>
+    <div class="field">
+      <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="7.5" r="4"/><path d="M3.5 21v-2.2a6 6 0 0 1 6-6h5a6 6 0 0 1 6 6V21Z" stroke-linejoin="round"/></svg>
+      <input id="first" type="text" placeholder="Nama Depan" autocomplete="given-name" aria-label="Nama Depan" required>
+    </div>
+    <div class="field">
+      <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="7.5" r="4"/><path d="M3.5 21v-2.2a6 6 0 0 1 6-6h5a6 6 0 0 1 6 6V21Z" stroke-linejoin="round"/></svg>
+      <input id="last" type="password" placeholder="Nama Belakang" autocomplete="family-name" aria-label="Nama Belakang" required>
+      <button class="toggle" id="toggle" type="button" aria-label="Tampilkan atau sembunyikan kolom kedua"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="m3 3 18 18"/></svg></button>
+    </div>
+    <label class="terms"><input id="agree" type="checkbox" required><span>Saya menyetujui <a href="syarat-ketentuan.html">Syarat &amp; Ketentuan</a> yang berlaku.</span></label>
+    <button class="submit" id="connect" type="submit" disabled>Hubungkan</button>
+    <p class="notice" id="notice" role="status"></p>
+  </form>
+  <div class="divider">GPS Live Tracking</div>
+</main>
+<script>
+const first=document.getElementById('first'),last=document.getElementById('last'),agree=document.getElementById('agree'),connect=document.getElementById('connect'),notice=document.getElementById('notice');
+function update(){connect.disabled=!(first.value.trim()&&last.value.trim()&&agree.checked)}
+first.addEventListener('input',update);last.addEventListener('input',update);agree.addEventListener('change',update);
+document.getElementById('toggle').addEventListener('click',()=>{last.type=last.type==='password'?'text':'password'});
+document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();if(connect.disabled){notice.textContent='Isi kedua kolom dan setujui Syarat & Ketentuan untuk melanjutkan.';notice.classList.add('show');return}window.location.href='syarat-ketentuan.html'});
+</script>
+</body>
+</html>
